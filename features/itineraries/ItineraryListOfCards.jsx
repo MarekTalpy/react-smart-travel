@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { PlusCircle } from 'lucide-react';
 
 import ItineraryCard from './ItineraryCard';
@@ -21,8 +21,6 @@ export default function ItineraryListOfCards() {
     try {
       const itineraries = await axios.get('itinerary');
 
-      console.log('itineraries', itineraries);
-
       setItineraries(itineraries.data);
     } catch (err) {
       setError(err ?? 'Failed to load itineraries');
@@ -35,12 +33,23 @@ export default function ItineraryListOfCards() {
     fetchItineraries();
   }, []);
 
+  const handleDelete = useCallback(async (id) => {
+    try {
+      await axios.delete(`itinerary/${id}`);
+      setItineraries((prev) => prev.filter((i) => i.id !== id));
+      showToast('Itinerary deleted', 'success');
+    } catch (err) {
+      showToast(err ?? 'Failed to delete itinerary', 'error');
+    }
+  }, []);
+
   if (loading) {
     return <AppSpinner />;
   }
 
   if (error) {
     showToast(error ?? 'Failed to load itineraries', 'error', null);
+    return null;
   }
 
   if (itineraries?.length === 0) {
@@ -63,7 +72,7 @@ export default function ItineraryListOfCards() {
   return (
     <div className="flex flex-col gap-4">
       {itineraries.map((itinerary) => (
-        <ItineraryCard itinerary={itinerary} key={itinerary.id}></ItineraryCard>
+        <ItineraryCard itinerary={itinerary} key={itinerary.id} onDelete={handleDelete}></ItineraryCard>
       ))}
     </div>
   );

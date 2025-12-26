@@ -13,7 +13,6 @@ export default function CreateItinerary() {
   const [error, setError] = useState(null);
 
   const handleGenerate = async ({ city, days }) => {
-    console.log(`handleGenerate(): city: ${city}, days: ${days}`);
     setLoading(true);
     setError(null);
 

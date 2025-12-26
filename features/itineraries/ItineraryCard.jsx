@@ -1,7 +1,8 @@
+import { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Trash2 } from 'lucide-react';
 
-export default function ItineraryCard({ itinerary, onDelete }) {
+const ItineraryCard = memo(function ItineraryCard({ itinerary, onDelete }) {
   const navigate = useNavigate();
 
   if (!itinerary) return null;
@@ -15,7 +16,7 @@ export default function ItineraryCard({ itinerary, onDelete }) {
         </h3>
 
         <button
-          onClick={() => onDelete(itinerary.id)}
+          onClick={() => onDelete(itinerary?.id)}
           className="text-red-500 hover:text-red-700 p-2 rounded-full cursor-pointer"
           title="Delete itinerary"
         >
@@ -42,4 +43,6 @@ export default function ItineraryCard({ itinerary, onDelete }) {
       </button>
     </div>
   );
-}
+});
+
+export default ItineraryCard;
