@@ -1,11 +1,5 @@
-import './App.css'
+import Provider from './provider';
 
-function App() {
-  return (
-    <>
-      <div>App Component</div>
-    </>
-  )
+export default function App() {
+  return <Provider />;
 }
-
-export default App
