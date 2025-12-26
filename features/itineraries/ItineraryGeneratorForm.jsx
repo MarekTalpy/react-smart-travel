@@ -1,13 +1,19 @@
-import { useState } from 'react';
+import { useState, forwardRef, useImperativeHandle } from 'react';
 
-export default function ItineraryGeneratorForm({ onGenerate }) {
+const ItineraryGeneratorForm = forwardRef(({ onGenerate }, ref) => {
   const [city, setCity] = useState('');
   const [days, setDays] = useState(1);
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  useImperativeHandle(ref, () => ({
+    reset: () => {
+      setCity('');
+      setDays(1);
+    },
+  }));
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     if (!city || days < 1) return;
 
     setLoading(true);
@@ -43,10 +49,14 @@ export default function ItineraryGeneratorForm({ onGenerate }) {
       <button
         type="submit"
         disabled={loading}
-        className="inline-flex justify-center rounded-md bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 cursor-pointer"
+        className={`inline-flex justify-center rounded-md px-4 py-2 text-white ${
+          loading ? 'bg-indigo-300 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700'
+        }`}
       >
         {loading ? 'Generating...' : 'Generate Itinerary'}
       </button>
     </form>
   );
-}
+});
+
+export default ItineraryGeneratorForm;
