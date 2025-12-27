@@ -23,7 +23,7 @@ export default function ItineraryListOfCards() {
 
       setItineraries(itineraries.data);
     } catch (err) {
-      setError(err ?? 'Failed to load itineraries');
+      setError(err?.response?.data?.error ?? 'Failed to load itineraries');
     } finally {
       setloading(false);
     }
@@ -39,7 +39,7 @@ export default function ItineraryListOfCards() {
       setItineraries((prev) => prev.filter((i) => i.id !== id));
       showToast('Itinerary deleted', 'success');
     } catch (err) {
-      showToast(err ?? 'Failed to delete itinerary', 'error');
+      showToast(err?.response?.data?.error ?? 'Failed to delete itinerary', 'error');
     }
   }, []);
 

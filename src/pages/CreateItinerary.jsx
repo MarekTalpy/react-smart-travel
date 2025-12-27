@@ -25,8 +25,8 @@ export default function CreateItinerary() {
       });
 
       setItinerary(itinerary.data);
-    } catch (error) {
-      setError(error ?? 'Failed to generate itinerary');
+    } catch (err) {
+      setError(err?.response?.data?.error ?? 'Failed to generate itinerary');
     } finally {
       setLoading(false);
     }
@@ -47,7 +47,7 @@ export default function CreateItinerary() {
       // Reset the form safely
       formRef.current?.reset();
     } catch (err) {
-      showToast(err ?? 'Failed to save itinerary', 'error');
+      showToast(err?.response?.data?.error ?? 'Failed to save itinerary', 'error');
     }
   };
 
