@@ -1,13 +1,15 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Menu, X } from 'lucide-react';
 
 export default function AppHeader() {
+  const [open, setOpen] = useState(false);
+
   return (
-    <header className="bg-white">
-      <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
-        {/* Logo */}
-        <div className="flex lg:flex-1">
-          <Link to="/" className="-m-1.5 p-1.5">
-            <span className="sr-only">Your Company</span>
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8 lg:grid lg:grid-cols-3 lg:items-center">
+        <div className="flex items-center">
+          <Link to="/" className="flex items-center gap-2">
             <img
               src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
               alt="Logo"
@@ -16,28 +18,7 @@ export default function AppHeader() {
           </Link>
         </div>
 
-        {/* Mobile menu button */}
-        <div className="flex lg:hidden">
-          <button
-            type="button"
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
-          >
-            <span className="sr-only">Open main menu</span>
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              aria-hidden="true"
-              className="h-6 w-6"
-            >
-              <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </button>
-        </div>
-
-        {/* Desktop links */}
-        <div className="hidden lg:flex lg:gap-x-12">
+        <div className="hidden lg:flex justify-center gap-x-12">
           <Link to="/create" className="text-sm font-semibold text-gray-900">
             Create Itinerary
           </Link>
@@ -46,13 +27,36 @@ export default function AppHeader() {
           </Link>
         </div>
 
-        {/* Right side */}
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <Link to="/login" className="text-sm font-semibold text-gray-900">
-            Log in <span aria-hidden="true">&rarr;</span>
+        <div className="flex items-center justify-end gap-4">
+          <Link to="/login" className="hidden lg:block text-sm font-semibold text-gray-900">
+            Log in
           </Link>
+
+          <button
+            onClick={() => setOpen(!open)}
+            className="lg:hidden p-2 rounded-md text-gray-700 hover:bg-gray-100"
+            aria-label="Toggle menu"
+          >
+            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
         </div>
       </nav>
+
+      {open && (
+        <div className="lg:hidden bg-white border-t shadow-md animate-enter">
+          <div className="flex flex-col px-6 py-4 space-y-4">
+            <Link to="/create" onClick={() => setOpen(false)}>
+              Create Itinerary
+            </Link>
+            <Link to="/my-itineraries" onClick={() => setOpen(false)}>
+              My Itineraries
+            </Link>
+            <Link to="/login" onClick={() => setOpen(false)}>
+              Log in
+            </Link>
+          </div>
+        </div>
+      )}
     </header>
   );
 }
