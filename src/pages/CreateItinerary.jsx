@@ -4,11 +4,13 @@ import axios from '../api/axios';
 import { showToast } from '../components/AppToast';
 import ItineraryGeneratorForm from '../../features/itineraries/ItineraryGeneratorForm';
 import NewItineraryPreview from '../../features/itineraries/NewItineraryPreview';
+import { STORAGE_KEYS } from '../constants/storageKeys';
+import { useSessionStorage } from '../hooks/useSessionStorage';
 
 export default function CreateItinerary() {
   const formRef = useRef(null);
 
-  const [itinerary, setItinerary] = useState(null);
+  const [itinerary, setItinerary] = useSessionStorage(STORAGE_KEYS.ITINERARY_PREVIEW, null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
