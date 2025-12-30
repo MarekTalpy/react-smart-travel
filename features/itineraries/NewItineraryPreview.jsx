@@ -14,15 +14,15 @@ export default function NewItineraryPreview({ itinerary, loading, error, onRemov
   if (!itinerary) return null;
 
   const actions = (
-    <>
+    <div className="flex flex-col gap-2 sm:flex-row sm:gap-2">
       <button
         onClick={onRemove}
         className="
-              inline-flex items-center gap-1.5
-              rounded-md border border-gray-300
-              px-3 py-1.5 text-sm text-gray-700
-              hover:bg-gray-100
-            "
+        inline-flex items-center gap-1.5
+        rounded-md border border-gray-300
+        px-3 py-1.5 text-sm text-gray-700
+        hover:bg-gray-100
+      "
       >
         <Trash2 className="h-4 w-4" />
         Remove preview
@@ -31,16 +31,16 @@ export default function NewItineraryPreview({ itinerary, loading, error, onRemov
       <button
         onClick={onSave}
         className="
-              inline-flex items-center gap-1.5
-              rounded-md bg-indigo-600
-              px-3 py-1.5 text-sm text-white
-              hover:bg-indigo-700
-            "
+        inline-flex items-center gap-1.5
+        rounded-md bg-indigo-600
+        px-3 py-1.5 text-sm text-white
+        hover:bg-indigo-700
+      "
       >
         <Save className="h-4 w-4" />
         Save to itineraries
       </button>
-    </>
+    </div>
   );
 
   return <ItineraryView itinerary={itinerary} actions={actions}></ItineraryView>;
