@@ -1,6 +1,6 @@
 export default function AppSpinner({ size = 8, color = 'text-indigo-600' }) {
   return (
-    <div className="flex justify-center items-center">
+    <div data-testid="app-spinner" className="flex justify-center items-center">
       <svg
         className={`animate-spin h-${size} w-${size} ${color}`}
         xmlns="http://www.w3.org/2000/svg"

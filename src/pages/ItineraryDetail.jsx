@@ -15,6 +15,9 @@ export function ItineraryDetail({ actions }) {
 
   useEffect(() => {
     const fetchItinerary = async () => {
+      setLoading(true);
+      setError(null);
+
       try {
         const res = await axios.get(`/itinerary/${id}`);
         setItinerary(res.data);
@@ -33,6 +36,7 @@ export function ItineraryDetail({ actions }) {
   }
 
   if (error) {
+    console.log('this is error invalid id ', error);
     showToast(error ?? 'Failed to load itineraries', 'error', null);
     return null;
   }

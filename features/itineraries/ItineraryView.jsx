@@ -13,7 +13,7 @@ export default function ItineraryView({ itinerary, actions }) {
       </div>
 
       {itinerary.days.map((day) => (
-        <div key={day.day} className="border-l-4 border-blue-500 pl-4">
+        <div data-testid="itinerary-container" key={day.day} className="border-l-4 border-blue-500 pl-4">
           <h3 className="font-semibold text-lg">
             Day {day.day}: {day.title}
           </h3>
