@@ -4,7 +4,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { ItineraryDetail } from './ItineraryDetail';
 import axios from '../api/axios';
 import { useParams } from 'react-router-dom';
-import { showToast } from '../components/AppToast';
+import { showToast } from '../../utils/notifications';
 
 vi.mock('../api/axios');
 
@@ -12,7 +12,7 @@ vi.mock('../../features/itineraries/ItineraryView', () => ({
   default: ({ itinerary }) => <div data-testid="itinerary-view">{itinerary?.city}</div>,
 }));
 
-vi.mock('../components/AppToast', () => ({
+vi.mock('../../utils/notifications', () => ({
   showToast: vi.fn(),
 }));
 

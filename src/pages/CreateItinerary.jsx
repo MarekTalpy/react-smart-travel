@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 
 import axios from '../api/axios';
-import { showToast } from '../components/AppToast';
+import { showToast } from '../../utils/notifications';
 import ItineraryGeneratorForm from '../../features/itineraries/ItineraryGeneratorForm';
 import NewItineraryPreview from '../../features/itineraries/NewItineraryPreview';
 import { STORAGE_KEYS } from '../constants/storageKeys';

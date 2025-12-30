@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import axios from '../api/axios';
 import AppSpinner from '../components/AppSpinner';
-import { showToast } from '../components/AppToast';
+import { showToast } from '../../utils/notifications';
 import ItineraryView from '../../features/itineraries/ItineraryView';
 
 export function ItineraryDetail({ actions }) {
@@ -29,16 +29,20 @@ export function ItineraryDetail({ actions }) {
     };
 
     fetchItinerary();
+
+    return () => {
+      setError(null);
+    };
   }, [id]);
+
+  useEffect(() => {
+    if (error) {
+      showToast(error, 'error', null);
+    }
+  }, [error]);
 
   if (loading) {
     return <AppSpinner />;
-  }
-
-  if (error) {
-    console.log('this is error invalid id ', error);
-    showToast(error ?? 'Failed to load itineraries', 'error', null);
-    return null;
   }
 
   return <ItineraryView itinerary={itinerary} actions={actions}></ItineraryView>;

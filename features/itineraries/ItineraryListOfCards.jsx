@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { PlusCircle } from 'lucide-react';
 
 import ItineraryCard from './ItineraryCard';
-import { showToast } from '../../src/components/AppToast';
+import { showToast } from '../../utils/notifications';
 import AppSpinner from '../../src/components/AppSpinner';
 import { useNavigate } from 'react-router-dom';
 import axios from '../../src/api/axios';
@@ -23,6 +23,7 @@ export default function ItineraryListOfCards() {
 
       setItineraries(itineraries.data);
     } catch (err) {
+      console.log('errerrerrerrerrerr', err);
       setError(err?.response?.data?.error ?? 'Failed to load itineraries');
     } finally {
       setloading(false);
@@ -32,6 +33,12 @@ export default function ItineraryListOfCards() {
   useEffect(() => {
     fetchItineraries();
   }, []);
+
+  useEffect(() => {
+    if (error) {
+      showToast(error ?? 'Failed to load itineraries', 'error', null);
+    }
+  }, [error]);
 
   const handleDelete = useCallback(async (id) => {
     try {
@@ -45,11 +52,6 @@ export default function ItineraryListOfCards() {
 
   if (loading) {
     return <AppSpinner />;
-  }
-
-  if (error) {
-    showToast(error ?? 'Failed to load itineraries', 'error', null);
-    return null;
   }
 
   if (itineraries?.length === 0) {
