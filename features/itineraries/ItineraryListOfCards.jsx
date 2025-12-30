@@ -23,7 +23,6 @@ export default function ItineraryListOfCards() {
 
       setItineraries(itineraries.data);
     } catch (err) {
-      console.log('errerrerrerrerrerr', err);
       setError(err?.response?.data?.error ?? 'Failed to load itineraries');
     } finally {
       setloading(false);
