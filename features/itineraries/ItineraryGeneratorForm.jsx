@@ -24,8 +24,12 @@ const ItineraryGeneratorForm = forwardRef(({ onGenerate }, ref) => {
   return (
     <form onSubmit={handleSubmit} className="space-y-4 max-w-md">
       <div>
-        <label className="block text-sm font-medium text-gray-700">City</label>
+        <label htmlFor="city" className="block text-sm font-medium text-gray-700">
+          City
+        </label>
         <input
+          id="city"
+          name="city"
           type="text"
           value={city}
           onChange={(e) => setCity(e.target.value)}
@@ -35,8 +39,12 @@ const ItineraryGeneratorForm = forwardRef(({ onGenerate }, ref) => {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700">Days</label>
+        <label htmlFor="days" className="block text-sm font-medium text-gray-700">
+          Days
+        </label>
         <input
+          id="days"
+          name="days"
           type="number"
           value={days}
           onChange={(e) => setDays(Number(e.target.value))}
@@ -48,6 +56,7 @@ const ItineraryGeneratorForm = forwardRef(({ onGenerate }, ref) => {
 
       <button
         type="submit"
+        aria-label="generate-itinerary"
         disabled={loading}
         className={`inline-flex justify-center rounded-md px-4 py-2 text-white ${
           loading ? 'bg-indigo-300 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700'

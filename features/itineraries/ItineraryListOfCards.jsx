@@ -53,13 +53,14 @@ export default function ItineraryListOfCards() {
     return <AppSpinner />;
   }
 
-  if (itineraries?.length === 0) {
+  if (itineraries?.length === 0 && !error && !loading) {
     return (
       <div className="flex flex-col items-center justify-center text-center py-20 space-y-6">
         <PlusCircle className="w-16 h-16 text-gray-300" />
         <h2 className="text-2xl font-bold text-gray-700">No itineraries created yet</h2>
         <p className="text-gray-500">Start planning your trips by creating a new itinerary.</p>
         <button
+          aria-label="create new itinerary"
           onClick={() => navigate('/create')}
           className="mt-4 inline-flex items-center gap-2 bg-indigo-600 text-white px-6 py-3 rounded-md hover:bg-indigo-700 transition"
         >

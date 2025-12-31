@@ -1,14 +1,18 @@
 import { Trash2, Save } from 'lucide-react';
 
 import ItineraryView from './ItineraryView';
+import { useEffect } from 'react';
+import { showToast } from '../../utils/notifications';
 
 export default function NewItineraryPreview({ itinerary, loading, error, onRemove, onSave }) {
+  useEffect(() => {
+    if (error) {
+      showToast(error, 'error', null);
+    }
+  }, [error]);
+
   if (loading) {
     return <p className="text-gray-500">Generating itinerary...</p>;
-  }
-
-  if (error) {
-    return <p className="text-red-500">{error}</p>;
   }
 
   if (!itinerary) return null;
@@ -16,6 +20,7 @@ export default function NewItineraryPreview({ itinerary, loading, error, onRemov
   const actions = (
     <div className="flex flex-col gap-2 sm:flex-row sm:gap-2">
       <button
+        aria-label="remove-preview"
         onClick={onRemove}
         className="
         inline-flex items-center gap-1.5
@@ -29,6 +34,7 @@ export default function NewItineraryPreview({ itinerary, loading, error, onRemov
       </button>
 
       <button
+        aria-label="save-itinerary"
         onClick={onSave}
         className="
         inline-flex items-center gap-1.5
